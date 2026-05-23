@@ -22,4 +22,10 @@ export default defineConfig({
   minify: false,
   treeshake: true,
   noExternal: [/.*/], // bundle everything — Worker can't resolve node_modules
+  // tsup default for IIFE format is `main.global.js`. Onda manifest references
+  // `dist/main.js`, so force the simple extension. Without this, every plugin
+  // generated from this template breaks at runtime ("main not found").
+  outExtension() {
+    return { js: '.js' };
+  },
 });
